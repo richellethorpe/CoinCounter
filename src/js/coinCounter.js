@@ -37,3 +37,27 @@ export function coinCounter(price){
   coins[1] = Pennies(price);
   return coins;
 }
+//Closure option for function
+
+const coin = (value) => {
+  return (price) => {
+    return Math.floor(price / value), price % value;
+  }
+}
+
+const QuarterCounter = coin(0.25);
+const DimeCounter = coin(0.1)
+const NickelCounter = coin(0.05);
+const PennyCounter = coin(0.01);
+let [quarters, dimes, nickels, pennies, remainder] = [0, 0, 0, 0, 0];
+[quarters, remainder] = QuarterCounter(price);
+[dimes, remainder] =DimeCounter(price);
+[nickels, remainder] =NickelCounter(price);
+[pennies, remainder] =PennyCounter(price);
+
+
+let coins = {};
+[.25, .1, .05, .01].forEach(value =>{
+  [numberOfCoins, remainder] = coin(value)(price);
+  coins[value] = numberOfCoins;
+})
